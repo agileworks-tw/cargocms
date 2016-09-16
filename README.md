@@ -1,82 +1,15 @@
-Cargo CMS
-==========
+# Container Dojo
 
-Installation
--------------
+體驗技術最快的方式，莫過於自己動手做。Container Summit 2016 設計兩個 Hands-On Labs，讓大家了解 Docker 技術多樣化的應用方式與威力
 
-```
-npm -g install babel-cli
 
-npm install
-```
+## Dojo 1：前端 E2E (End to End) Testing with Docker
 
-Run
-----
+實際動手做，了解如何使用 Docker 進行自動化的 E2E 前端測試，讓前端測試更容易進行，即使沒有桌面環境，透過 Docker 的協助，只要有 Docker 的運作環境，可在任何地方進行前端測試。
 
-```
-npm run build
+## Dojo 2：Continuous Integration with Docker
 
-npm start
-```
+搭配 E2E Testing with Docker 透過 Jenkins 搭配 Docker 運行，讓 Jenkins 即使沒有安裝 UI 環境或是 Browser 即可以進行前端自動化測試，更靈活地搭配 Docker 進行部署與測試、強化開發流程。
 
-Ports
--------
 
-* 5001 development sails server
-* 5002 development react admin dev server
-* 5011 production sails server
-
-References
------------
-
-* [SB Admin React](http://startreact.com/themes/sb-admin-react-3/)
-* [ng-admin](http://ng-admin-book.marmelab.com/)
-* [react-admin](https://github.com/marmelab/react-admin)
-* [AdminLTE - Free Premium Admin control Panel Theme](https://github.com/almasaeed2010/AdminLTE)
-* [StrapUI](http://www.strapui.com/)
-
-Issues
-------
-
-EJS JS/CSS Injection Issues
-
-http://stackoverflow.com/questions/6609238/is-there-a-way-to-add-css-js-later-using-ejs-with-nodejs-express
-
-## use Cloud front
-
-need to set `cors.origin`
-
-ex:
-
-cors.origin: 'http://cargo.trunksys.com, https://cargo.trunksys.com',
-
-## Project Layout
-
-### View Usages
-
-```
-// date only
-<%=: row.createdAt | formatDate %>
-
-// date time
-<%=| row.createdAt | formatDateTime %>
-```
-
-### Controller
-
-```
-// 標準前台功能
-controllers/*Controller.js
-
-// 標準 API 功能
-controllers/api/*Controller.js
-
-// 後台功能
-controllers/admin/*Controller.js
-
-// 站台專屬客製前台功能以 labfnp 為例
-controllers/labfnp/*Controller.js
-
-// 站台專屬客製 API 功能
-controllers/api/labfnp/*Controller.js
-```
+(創科資訊)[http://trunk.studio/]

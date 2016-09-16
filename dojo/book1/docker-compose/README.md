@@ -1,15 +1,19 @@
+```
 version: '2'
 services:
   debug:
-    container_name: debug
+    container_name: sailsSample_dev
     image: agileworks/sails_sample_env
     command: "/bin/sh"
-
+    hostname: "app"
+    environment:
+      PORT: "1337"
+      NODE_ENV: "development"
+      DOMAIN_HOST: "localhost:1337"
     expose:
-      - "5001"
-      - "1337"
       - "1338"
-
+    ports:
+      - "8000:1337"
 
     working_dir: /sailsSample
     volumes:
@@ -99,3 +103,8 @@ networks:
     driver: bridge
   back-tier:
     driver: bridge
+
+```
+
+
+`docker-compose -f docker-compose2.yml run --service-ports debug`

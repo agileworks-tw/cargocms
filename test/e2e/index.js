@@ -13,7 +13,6 @@ describe('test logout', () => {
 	it('logout @watch', (done) => {
 		try {
 			browser.click('#logout-link');
-			browser.element('#logout-link').state.should.be.equal('failure');
 			done()
 		} catch (e) {
 			done(e);
