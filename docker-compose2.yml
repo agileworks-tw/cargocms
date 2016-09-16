@@ -1,22 +1,22 @@
 version: '2'
 services:
   debug:
-    container_name: debug
+    container_name: debug #
     image: agileworks/sails_sample_env
     command: "/bin/sh"
 
-    expose:
-      - "5001"
-      - "1337"
-      - "1338"
-
+    # expose:
+    #   - "5001" #
+    #   - "1338" #
+    # ports:
+    #   - "5001:5001"
 
     working_dir: /sailsSample
     volumes:
       - ./:/sailsSample
     depends_on:
       - "mysql"
-      - "e2e-env"
+      # - "e2e-env" #
     networks:
       - front-tier
       - back-tier
@@ -24,14 +24,12 @@ services:
   e2e-env:
     container_name: e2e-env
     image: selenium/standalone-firefox-debug:2.53.0
-    expose:
-      - "4444"
+    # expose:
+    #   - "4444" #
     ports:
-      - "5900:5900"
+      - "5900:5900" #
     networks:
-      - front-tier
-
-
+      - front-tier #
 
   dev:
     container_name: sailsSample_dev
