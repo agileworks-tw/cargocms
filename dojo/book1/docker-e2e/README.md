@@ -18,12 +18,10 @@ debug:
   working_dir: /sailsSample
 
   depends_on:
-    - "mysql"
     - "e2e-env"
 
   networks:
     - front-tier
-    - back-tier
 ```
 
 ```
@@ -45,7 +43,6 @@ expose:
   - "1338"
 networks:
   - front-tier
-  - back-tier
 ```
 
 而 e2e-env 的 service 定義為

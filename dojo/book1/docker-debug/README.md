@@ -22,12 +22,10 @@ debug:
   working_dir: /sailsSample
 
   depends_on:
-    - "mysql"
     - "e2e-env"
 
   networks:
     - front-tier
-    - back-tier
 ```
 
 由上面的設定檔可以看到使用前面章節：[建置專案 Docker 環境](../build/README.md) 所建立的 image
@@ -53,11 +51,10 @@ expose:
 
 ```
 depends_on:
-  - "mysql"
   - "e2e-env"
 ```
 
-分別是資料庫 `mysql` 及前端測試環境 `e2e-env`，其中 `e2e-env` 將在 [透過 Docker 運行專案並執行 e2e test](../docker-e2e/README.md) 使用。
+其中 `e2e-env` 將在 [透過 Docker 運行專案並執行 e2e test](../docker-e2e/README.md) 使用。
 
 
 ## 運行 docker-compose
