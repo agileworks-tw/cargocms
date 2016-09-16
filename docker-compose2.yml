@@ -6,7 +6,6 @@ services:
     command: "/bin/sh"
 
     # expose:
-    #   - "5001" #
     #   - "1338" #
     # ports:
     #   - "5001:5001"
@@ -15,11 +14,9 @@ services:
     volumes:
       - ./:/sailsSample
     depends_on:
-      - "mysql"
       # - "e2e-env" #
     networks:
       - front-tier
-      - back-tier
 
   e2e-env:
     container_name: e2e-env
@@ -35,13 +32,9 @@ services:
     container_name: sailsSample_dev
     image: agileworks/sails_sample_env
     command: "/bin/sh -l -c 'npm i && npm start'"
-    environment:
-      PORT: "1337"
-      NODE_ENV: "development"
-      DOMAIN_HOST: "localhost:1337"
 
     ports:
-      - "8000:1337"
+      - "5001:5001"
 
     working_dir: /sailsSample
     volumes:
