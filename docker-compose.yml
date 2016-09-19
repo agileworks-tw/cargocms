@@ -4,33 +4,11 @@ services:
     container_name: sailsSample_dev
     image: agileworks/sails_sample_env
     command: "npm install"
-
     ports:
       - "5001:5001"
-
     working_dir: /sailsSample
     volumes:
       - ./:/sailsSample
-
-    networks:
-      - front-tier
-  debug:
-    container_name: debug #
-    image: agileworks/sails_sample_env
-    command: "/bin/sh"
-
-    # expose:
-    #   - "1338" #
-    # ports:
-    #   - "5001:5001"
-
-    working_dir: /sailsSample
-    volumes:
-      - ./:/sailsSample
-    # depends_on:
-      # - "e2e-env" #
-    networks:
-      - front-tier
 
   test:
     container_name: debug #
@@ -64,7 +42,7 @@ services:
   dev:
     container_name: sailsSample_dev
     image: agileworks/sails_sample_env
-    command: "/bin/sh -l -c 'npm start'"
+    command: "npm start"
 
     ports:
       - "5001:5001"
