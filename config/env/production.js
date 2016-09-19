@@ -1,7 +1,7 @@
 /**
- * Production environment settings
+ * Development environment settings
  *
- * This file can include shared settings for a production environment,
+ * This file can include shared settings for a development team,
  * such as API keys or remote database passwords.  If you're using
  * a version control solution for your Sails app, this file will
  * be committed to your repository unless you add it to your .gitignore
@@ -11,24 +11,15 @@
  */
 
 module.exports = {
+  appUrl: 'http://cargo-dev.trunksys.com/',
   port: 5011,
   socials: ["facebook", "googleplus", "twitter"],
-  /***************************************************************************
-   * Set the default database connection for models in the production        *
-   * environment (see config/connections.js and config/models.js )           *
-   ***************************************************************************/
   models: {
-   connection: 'sqlite',
-   migrate: 'drop'
+    connection: 'sqlite',
+    migrate: 'drop'
   },
-  // models: {
-  //   connection: 'mysql',
-  //   migrate: 'safe'
-  // },
-
-
   log: {
-    level: "info"
+    level: 'verbose'
   },
   passport: {
     local: {
@@ -49,16 +40,5 @@ module.exports = {
         ]
       }
     }
-  },
-  session: {
-    secret: '',
-    adapter: 'redis',
-    host: 'localhost',
-    port: 6379,
-    db: 0,
-    pass: "",
-    prefix: 'sess:',
-  },
-
-
+  }
 };

@@ -43,7 +43,7 @@ node {
     sh "docker build -t agileworks/sails_sample_prod ."
     try{
       sh "docker rm -f sails_sample_prod"
-    } catch {}
+    } catch(e) {}
     sh "docker run -d --name sails_sample_prod -p 8800:5011 agileworks/sails_sample_prod"
   }
 
