@@ -22,12 +22,12 @@ node {
   }
 
   stage('test project'){
-    sh "docker-compose run --rm test"
+    sh "docker-compose run --rm --service-ports --name debug test"
   }
 
 
   stage('run project'){
-    sh "docker-compose run -d --rm dev"
+    sh "docker-compose run -d --rm --service-ports --name dev dev"
   }
 
   stage('check staging'){
@@ -35,7 +35,7 @@ node {
       def url = 'http://localhost:5001/'
       input message: "Does staging at $url look good? ", ok: "done!"
     }finally{
-      sh "docker-compose stop dev"
+      sh "docker rm -f dev"
     }
   }
 }
