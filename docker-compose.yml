@@ -1,6 +1,6 @@
 version: '2'
 services:
-  dev:
+  build:
     container_name: sailsSample_dev
     image: agileworks/sails_sample_env
     command: "npm install"
