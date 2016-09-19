@@ -1,5 +1,19 @@
 version: '2'
 services:
+  dev:
+    container_name: sailsSample_dev
+    image: agileworks/sails_sample_env
+    command: "npm install"
+
+    ports:
+      - "5001:5001"
+
+    working_dir: /sailsSample
+    volumes:
+      - ./:/sailsSample
+
+    networks:
+      - front-tier
   debug:
     container_name: debug #
     image: agileworks/sails_sample_env
@@ -18,11 +32,30 @@ services:
     networks:
       - front-tier
 
+  test:
+    container_name: debug #
+    image: agileworks/sails_sample_env
+    command: "npm run test-e2e-docker"
+
+    expose:
+      - "1338" #
+    ports:
+      - "5001:5001"
+
+    working_dir: /sailsSample
+    volumes:
+      - ./:/sailsSample
+    depends_on:
+      - "e2e-env" #
+    networks:
+      - front-tier
+
+
   e2e-env:
     container_name: e2e-env
     image: selenium/standalone-firefox-debug:2.53.0
-    # expose:
-    #   - "4444" #
+    expose:
+      - "4444" #
     ports:
       - "5900:5900" #
     networks:
@@ -31,7 +64,7 @@ services:
   dev:
     container_name: sailsSample_dev
     image: agileworks/sails_sample_env
-    command: "/bin/sh -l -c 'npm i && npm start'"
+    command: "/bin/sh -l -c 'npm start'"
 
     ports:
       - "5001:5001"
@@ -39,11 +72,9 @@ services:
     working_dir: /sailsSample
     volumes:
       - ./:/sailsSample
-    depends_on:
-      - "mysql"
+
     networks:
       - front-tier
-      - back-tier
 
   mysql:
     container_name: mysql
