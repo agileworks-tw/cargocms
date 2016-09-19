@@ -1,130 +1,123 @@
-debug:
-  container_name: sailsSample_debug
-  image: agileworks/sails_sample_env
-  command: "/bin/sh -l"
+version: '2'
+services:
+  dev:
+    container_name: sailsSample_dev
+    image: agileworks/sails_sample_env
+    command: "npm install"
 
-  working_dir: /app
-  volumes:
-    - ./:/app
-  ports:
-    - "1337:1337"
+    ports:
+      - "5001:5001"
 
-build:
-  container_name: sailsSample_build
-  image: agileworks/sails_sample_env
-  command: "npm run build"
-  working_dir: /app
-  volumes:
-    - ./:/app
+    working_dir: /sailsSample
+    volumes:
+      - ./:/sailsSample
 
-buildDev:
-  container_name: sailsSample_buildDev
-  image: agileworks/sails_sample_env
-  command: "/bin/sh -l -c 'npm i && npm run build'"
+    networks:
+      - front-tier
+  debug:
+    container_name: debug #
+    image: agileworks/sails_sample_env
+    command: "/bin/sh"
 
-  working_dir: /app
-  volumes:
-    - ./:/app
+    # expose:
+    #   - "1338" #
+    # ports:
+    #   - "5001:5001"
 
-buildProd:
-  container_name: sailsSample_buildProd
-  image: agileworks/sails_sample_env
-  command: "/bin/sh -l -c 'npm i && npm run prod'"
+    working_dir: /sailsSample
+    volumes:
+      - ./:/sailsSample
+    # depends_on:
+      # - "e2e-env" #
+    networks:
+      - front-tier
 
-  working_dir: /app
-  volumes:
-    - ./:/app
+  test:
+    container_name: debug #
+    image: agileworks/sails_sample_env
+    command: "npm run test-e2e-docker"
 
-test:
-  container_name: sailsSample_test
-  image: agileworks/sails_sample_env
-  command: "/bin/sh -l -c 'npm run test-junit'"
+    expose:
+      - "1338" #
+    ports:
+      - "5001:5001"
 
-  working_dir: /app
-  volumes:
-    - ./:/app
-
-start-e2e-env:
-  container_name: e2e-env
-  image: selenium/standalone-firefox-debug:2.53.0
-  ports:
-    - "4444:4444"
-    - "5900:5900"
-
-start:
-  container_name: sailsSample_dev
-  image: agileworks/sails_sample_env
-  command: "/bin/sh -l -c 'npm start'"
-  environment:
-    PORT: "1337"
-    NODE_ENV: "development"
-    DOMAIN_HOST: "localhost:1337"
-
-  ports:
-    - "8800:1337"
-
-  working_dir: /app
-  volumes:
-    - ./:/app
-
-dev:
-  container_name: sailsSample_dev
-  image: agileworks/sails_sample_env
-  command: "/bin/sh"
-  environment:
-    PORT: "1337"
-    NODE_ENV: "development"
-    DOMAIN_HOST: "localhost:1337"
-
-  ports:
-    - "8800:1337"
-
-  working_dir: /app
-  volumes:
-    - ./:/app
+    working_dir: /sailsSample
+    volumes:
+      - ./:/sailsSample
+    depends_on:
+      - "e2e-env" #
+    networks:
+      - front-tier
 
 
-prod:
-  container_name: sailsSample_prod
-  image: agileworks/sails_sample_env
-  command: "/bin/sh -l -c 'npm run build-prod && npm run start-prod'"
-  environment:
-    PORT: "1337"
-    NODE_ENV: "development"
-    DOMAIN_HOST: "localhost:1337"
+  e2e-env:
+    container_name: e2e-env
+    image: selenium/standalone-firefox-debug:2.53.0
+    expose:
+      - "4444" #
+    ports:
+      - "5900:5900" #
+    networks:
+      - front-tier #
 
-  ports:
-    - "1337:1337"
+  dev:
+    container_name: sailsSample_dev
+    image: agileworks/sails_sample_env
+    command: "/bin/sh -l -c 'npm start'"
 
-  working_dir: /app
-  volumes:
-    - ./:/app
+    ports:
+      - "5001:5001"
+
+    working_dir: /sailsSample
+    volumes:
+      - ./:/sailsSample
+
+    networks:
+      - front-tier
+
+  mysql:
+    container_name: mysql
+    image: dgraziotin/mysql
+    expose:
+      - "3306"
+    ports:
+      - "3300:3306"
+
+    environment:
+      MYSQL_ADMIN_PASS: "root"
+      MYSQL_USER_NAME: "nodejsSample"
+      MYSQL_USER_DB: "nodejsSample"
+      MYSQL_USER_PASS: "nodejsSample"
+      CREATE_MYSQL_BASIC_USER_AND_DB: "true"
+
+    volumes:
+      - mysql-data:/var/lib/mysql/
+    networks:
+      - back-tier
+
+  backup:
+    image: ubuntu
+    volumes:
+      - ./:/backup
+      - mysql-data:/dbdata
+    command: "tar cvf /backup/backup.tar /dbdata"
+
+  restore:
+    image: ubuntu
+    volumes:
+      - ./:/backup
+      - mysql-data:/dbdata
+    working_dir: /dbdata
+    command: "tar xvf /backup/backup.tar --strip 1"
 
 
-mysql:
-  container_name: mysql
-  image: dgraziotin/mysql
+volumes:
+  mysql-data:
+    driver: local
 
-  ports:
-    - "3306:3306"
-  environment:
-    MYSQL_ADMIN_PASS: "root"
-    MYSQL_USER_NAME: "nodejsSample"
-    MYSQL_USER_DB: "nodejsSample"
-    MYSQL_USER_PASS: "nodejsSample"
-    CREATE_MYSQL_BASIC_USER_AND_DB: "true"
-
-  volumes:
-    - ../database:/var/lib/mysql/
-
-
-ci:
-  container_name: ci
-  image: killercentury/jenkins-dind
-  volumes:
-    - /var/run/docker.sock:/var/run/docker.sock
-    - ./.jenkins:/var/lib/jenkins
-  ports:
-    - "5000:5000"
-    - "8080:8080"
-  privileged: true
+networks:
+  front-tier:
+    driver: bridge
+  back-tier:
+    driver: bridge
