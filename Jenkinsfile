@@ -40,11 +40,11 @@ node {
   }
 
   stage('build production image'){
-    sh "docker build -t agileworks/sails_sample_prod ."
+    // sh "docker build -t agileworks/sails_sample_prod ." // for saving time
     try{
       sh "docker rm -f sails_sample_prod"
     } catch(e) {}
-    sh "docker run -d --name sails_sample_prod -p 8800:5011 agileworks/sails_sample_prod"
+    sh "docker run -d --name sails_sample_prod -p 8800:5011 --restart always agileworks/sails_sample_prod"
   }
 
 }
