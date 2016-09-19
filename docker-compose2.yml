@@ -13,7 +13,7 @@ services:
     working_dir: /sailsSample
     volumes:
       - ./:/sailsSample
-    depends_on:
+    # depends_on:
       # - "e2e-env" #
     networks:
       - front-tier
