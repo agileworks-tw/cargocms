@@ -84,7 +84,7 @@
     "start-mysql-docker": "docker-compose up -d mysql",
     "start-web-docker": "docker rm -f web || true && docker run -d --link mysql -p 1337:1337 --restart always --name web trunk/sails",
     "start-prod-docker": "npm run start-mysql-docker && npm run start-web-docker",
-    "restart-dojo": "docker rm -f `docker ps -a -q` && git checkout ."
+    "restart-dojo": "make restart-dojo"
   },
   "main": "app.js",
   "repository": {

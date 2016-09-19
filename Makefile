@@ -22,3 +22,8 @@ preview:
 	- pm2 stop cargo-preview
 	- pm2 delete cargo-preview
 	pm2 start app.js --name cargo-preview
+
+restart-dojo:
+	- docker rm -f `docker ps -a -q`
+	- docker network rm `docker network ls -q`
+	git checkout .
