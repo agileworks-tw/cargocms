@@ -11,4 +11,4 @@
 ## 練習目標
 
 1. 了解 Docker 如何搭配 Jenkins 進行自動化測試
-2. 了解 Jenkins 如何經由 Docker 簡化環境建置
+2. 了解 Jenkins 如何經由 Docker 簡化建置流程

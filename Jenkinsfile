@@ -33,9 +33,18 @@ node {
   stage('check staging'){
     try{
       def url = 'http://localhost:5001/'
-      input message: "Does staging at $url look good? ", ok: "done!"
+      input message: "Does staging at $url look good? ", ok: "ok! build production image."
     }finally{
       sh "docker rm -f dev"
     }
   }
+
+  stage('build production image'){
+    sh "docker build -t agileworks/sails_sample_prod ."
+    try{
+      sh "docker rm -f sails_sample_prod"
+    } catch {}
+    sh "docker run -d --name sails_sample_prod -p 8800:5011 agileworks/sails_sample_prod"
+  }
+
 }
