@@ -60,7 +60,7 @@ depends_on:
 ## 運行 docker-compose
 
 ```
-docker-compose -f docker-compose2.yml run \
+docker-compose run --rm \
 --service-ports \
 --name debug debug
 ```
