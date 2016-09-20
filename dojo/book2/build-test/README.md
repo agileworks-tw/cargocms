@@ -2,7 +2,7 @@
 
 ## 建置專案
 
-延續 dojo1 的練習進行 docker image `agileworks/sails_sample_env` 的建置，並且透過該 image 進行專案建置。
+延續 Dojo 1 的練習進行 docker image `agileworks/sails_sample_env` 的建置，並且透過該 image 進行專案建置。
 
 ```
 stage('build'){
@@ -15,7 +15,7 @@ stage('build'){
 
 ## 專案測試
 
-延續 dojo1 的練習，進行前端 e2e 測試，並且加上 UAT 預覽測試，若確認沒有問題在進行 production image 的建置。
+延續 Dojo 1 的練習，進行前端 e2e 測試，並且加上 UAT 預覽測試，若確認沒有問題在進行 production image 的建置。
 
 ```
 stage('test'){

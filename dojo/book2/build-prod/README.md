@@ -12,9 +12,9 @@ EXPOSE 5011
 CMD 'npm start --production'
 ```
 
-繼承 dojo1 docker image 之 dockerfile。
+繼承 Dojo 1 docker image 之 dockerfile。
 
-與 dojo1 進行測試時透過 `-v` 進行程式碼掛載不同，若是 Production Image 需要將相關檔案直接複製到 Image 內，如此一來就可以直接透過 `docker pull` 進行使用。
+與 Dojo 1 進行測試時透過 `-v` 進行程式碼掛載不同，若是 Production Image 需要將相關檔案直接複製到 Image 內，如此一來就可以直接透過 `docker pull` 進行使用。
 
 且直接定義 `CMD` 以便透過 `docker run` 直接使用。
 
