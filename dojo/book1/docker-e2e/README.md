@@ -102,7 +102,7 @@ webdriverio: {
 
 ## 運行前端測試
 
-`docker run test-e2e-docker`
+`npm run test-e2e-docker`
 
 ## 前端測試除錯
 
