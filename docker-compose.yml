@@ -28,22 +28,49 @@ services:
     networks:
       - front-tier #
 
-  dev:
-    container_name: sailsSample_dev
-    image: agileworks/sails_sample_env
-    command: "/bin/sh -l -c 'npm i && npm start'"
+build:
+  container_name: sailsSample_dev
+  image: agileworks/sails_sample_env
+  command: "npm install"
+  ports:
+    - "5001:5001"
+  working_dir: /sailsSample
+  volumes:
+    - ./:/sailsSample
 
-    ports:
-      - "5001:5001"
+test:
+  container_name: debug #
+  image: agileworks/sails_sample_env
+  command: "npm run test-e2e-docker"
 
-    working_dir: /sailsSample
-    volumes:
-      - ./:/sailsSample
-    depends_on:
-      - "mysql"
-    networks:
-      - front-tier
-      - back-tier
+  expose:
+    - "1338" #
+  ports:
+    - "5001:5001"
+
+  working_dir: /sailsSample
+  volumes:
+    - ./:/sailsSample
+  depends_on:
+    - "e2e-env" #
+  networks:
+    - front-tier
+
+dev:
+  container_name: sailsSample_dev
+  image: agileworks/sails_sample_env
+  command: "npm start"
+
+  ports:
+    - "5001:5001"
+
+  working_dir: /sailsSample
+  volumes:
+    - ./:/sailsSample
+
+  networks:
+    - front-tier
+
 
   mysql:
     container_name: mysql
