@@ -11,6 +11,8 @@ stage('build'){
 }
 ```
 
+
+
 ## 專案測試
 
 延續 dojo1 的練習，進行前端 e2e 測試，並且加上 UAT 預覽測試，若確認沒有問題在進行 production image 的建置。
@@ -28,3 +30,5 @@ stage('test'){
   }
 }
 ```
+
+上述相關 docker-compose service 參考 [完整 docker-compose](../docker-compose/README.md) 章節
