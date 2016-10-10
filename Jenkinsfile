@@ -28,7 +28,7 @@ node {
   }
 
   stage('production'){
-    // sh "docker build -t agileworks/sails_sample_prod ." // for saving time
+    sh "docker build -t agileworks/sails_sample_prod ." // for saving time
     try{
       sh "docker rm -f sails_sample_prod"
     } catch(e) {}
