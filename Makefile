@@ -16,7 +16,7 @@ restart-production:
 	ssh jenkins@localhost  cd ~/deploy/production && NODE_ENV=production pm2 start -f app.js --name 'production'
 
 start-e2e-docker:
-	- docker-compose up -d start-e2e-env
+	- docker-compose up -d e2e-env
 
 preview:
 	- pm2 stop cargo-preview

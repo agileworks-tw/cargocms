@@ -7,7 +7,7 @@ node {
   }
 
   stage('checkout'){
-    git url: 'https://github.com/smlsunxie/cargocms.git', branch: 'dojo2'
+    git url: 'https://github.com/agileworks-tw/docker-e2e-sample.git', branch: 'master'
   }
 
   stage('build'){
