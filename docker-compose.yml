@@ -27,7 +27,25 @@ services:
       - "e2e-env" #
     networks:
       - front-tier
+  debug:
+    container_name: debug
+    image: agileworks/sails_sample_env
+    command: "/bin/sh"
 
+    expose:
+      - "1338"
+    ports:
+      - "5001:5001"
+
+    volumes:
+      - ./:/sailsSample
+    working_dir: /sailsSample
+
+    depends_on:
+      - "e2e-env"
+
+    networks:
+      - front-tier
 
   e2e-env:
     container_name: e2e-env
