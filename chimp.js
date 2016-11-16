@@ -3,7 +3,7 @@ var ip = require("ip");
 var host = ip.address();
 
 module.exports = {
-  // browser: 'firefox',
+  browser: 'chrome',
   webdriverio: {
     baseUrl: 'http://'+host+':1338',
     waitforTimeout: 5000,

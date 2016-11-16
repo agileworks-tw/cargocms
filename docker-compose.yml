@@ -24,7 +24,7 @@ services:
     volumes:
       - ./:/sailsSample
     depends_on:
-      - "e2e-env" #
+      - "e2e-env"
     networks:
       - front-tier
   debug:
