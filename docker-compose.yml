@@ -92,21 +92,6 @@ services:
     networks:
       - back-tier
 
-  backup:
-    image: ubuntu
-    volumes:
-      - ./:/backup
-      - mysql-data:/dbdata
-    command: "tar cvf /backup/backup.tar /dbdata"
-
-  restore:
-    image: ubuntu
-    volumes:
-      - ./:/backup
-      - mysql-data:/dbdata
-    working_dir: /dbdata
-    command: "tar xvf /backup/backup.tar --strip 1"
-
 
 volumes:
   mysql-data:
